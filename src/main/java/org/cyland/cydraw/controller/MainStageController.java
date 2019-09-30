@@ -3,6 +3,7 @@ package org.cyland.cydraw.controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -26,6 +27,9 @@ public class MainStageController implements Initializable {
   @FXML
   private Pane draggableBar;
 
+  @FXML
+  public Label minimizeLabel;
+
   private double xOffset;
   private double yOffset;
 
@@ -33,6 +37,16 @@ public class MainStageController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     makeStageDraggable();
+    fixBugWithMaximizingAfterMinimizing();
+  }
+
+  private void fixBugWithMaximizingAfterMinimizing() {
+    Launch.stage.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
+      if (!newValue){
+        minimizeLabel.setVisible(false);
+        minimizeLabel.setVisible(true);
+      }
+    });
   }
 
   private void makeStageDraggable() {

@@ -19,13 +19,14 @@ final public class Launch extends Application {
   @Override
   public void start(Stage primaryStage) throws Exception {
 
+    stage = primaryStage;
+
     Parent root = FXMLLoader.load(getClass().getResource(VIEW_SLUG + VIEW_NAME));
 
     primaryStage.initStyle(StageStyle.UNDECORATED);
     primaryStage.setTitle(APPLICATION_NAME);
     primaryStage.setScene(new Scene(root));
 
-    stage = primaryStage;
     primaryStage.show();
   }
 

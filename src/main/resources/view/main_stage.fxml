@@ -15,7 +15,7 @@
          </padding>
          <children>
             <Pane fx:id="draggableBar" HBox.hgrow="ALWAYS" />
-            <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minimizeStage" prefHeight="30.0" prefWidth="30.0" styleClass="minus-btn">
+            <Label fx:id="minimizeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#minimizeStage" prefHeight="30.0" prefWidth="30.0" styleClass="minus-btn">
                <graphic>
                   <FontAwesomeIconView glyphName="MINUS" glyphStyle="-fx-fill:white" size="1.3em" />
                </graphic></Label>

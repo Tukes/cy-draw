@@ -14,7 +14,6 @@
   -fx-background-color: transparent;
 }
 
-/* commented out due to a bug with expanding window after minimizing
 .minus-btn:hover {
   -fx-background-color: #171717;
-} */
+}
