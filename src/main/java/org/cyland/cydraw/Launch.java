@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -23,9 +24,10 @@ final public class Launch extends Application {
 
     Parent root = FXMLLoader.load(getClass().getResource(VIEW_SLUG + VIEW_NAME));
 
-    primaryStage.initStyle(StageStyle.UNDECORATED);
     primaryStage.setTitle(APPLICATION_NAME);
     primaryStage.setScene(new Scene(root));
+    primaryStage.initStyle(StageStyle.TRANSPARENT);
+    primaryStage.getScene().setFill(Color.TRANSPARENT);
 
     primaryStage.show();
   }
