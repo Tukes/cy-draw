@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -63,9 +64,22 @@ public class BasicCommunicationTabController implements Initializable {
     SerialPort comPort = devicesList.getValue();
     if (comPort.openPort()) {
       openedPort = comPort;
+      openedPort.setBaudRate(115200);
       commandToSend.setDisable(false);
       sendButton.setDisable(false);
-      responseField.setText("Connected successfully");
+
+      Task<String> readTask = new Task<String>() {
+        @Override
+        protected String call() throws Exception {
+          byte[] readBuffer = new byte[1024];
+          int bytesRead = openedPort.readBytes(readBuffer, readBuffer.length);
+          return new String(readBuffer, StandardCharsets.US_ASCII);
+        }
+      };
+
+      responseField.setText("Connected successfully! ");
+      readTask.setOnSucceeded(event1 -> responseField.setText("Connected successfully: " + readTask.getValue()));
+      executorService.submit(readTask);
       disconnectButton.setDisable(false);
       disconnectButton.setVisible(true);
     }
@@ -79,7 +93,7 @@ public class BasicCommunicationTabController implements Initializable {
   @FXML
   void sendCommand(MouseEvent event) {
 
-    String command = commandToSend.getText();
+    String command = commandToSend.getText() + "\r";
 
     Task<Void> sendTask = new Task<Void>() {
       @Override
