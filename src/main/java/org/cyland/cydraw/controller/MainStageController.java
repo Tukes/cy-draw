@@ -2,16 +2,22 @@ package org.cyland.cydraw.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import org.cyland.cydraw.Launch;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static org.cyland.cydraw.contract.Contract.VIEW_SLUG;
 
 public class MainStageController implements Initializable {
 
@@ -20,6 +26,9 @@ public class MainStageController implements Initializable {
 
   @FXML
   private HBox header;
+
+  @FXML
+  public VBox leftPanel;
 
   @FXML
   private Pane content;
@@ -36,12 +45,32 @@ public class MainStageController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
 
+    addBasicSerialCommunicationTab();
+
     makeStageDraggable();
     fixBugWithMaximizingAfterMinimizing();
   }
 
+  public static void setContent(Node... elements){
+
+    Launch.getController().content.getChildren().setAll(elements);
+  }
+
+  private void addBasicSerialCommunicationTab() {
+
+    Pane tab;
+    try {
+      tab = FXMLLoader.load(getClass().getResource(VIEW_SLUG + "/basic_communication_tab_icon.fxml"));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    leftPanel.getChildren().add(tab);
+  }
+
   private void fixBugWithMaximizingAfterMinimizing() {
-    Launch.stage.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
+
+    Launch.getStage().iconifiedProperty().addListener((observable, oldValue, newValue) -> {
       if (!newValue){
         minimizeLabel.setVisible(false);
         minimizeLabel.setVisible(true);
@@ -57,13 +86,13 @@ public class MainStageController implements Initializable {
     });
 
     draggableBar.setOnMouseDragged(event -> {
-      Launch.stage.setOpacity(0.8);
-      Launch.stage.setX(event.getScreenX() - xOffset);
-      Launch.stage.setY(event.getScreenY() - yOffset);
+      Launch.getStage().setOpacity(0.8);
+      Launch.getStage().setX(event.getScreenX() - xOffset);
+      Launch.getStage().setY(event.getScreenY() - yOffset);
     });
 
-    draggableBar.setOnDragDone(event -> Launch.stage.setOpacity(1.0));
-    draggableBar.setOnMouseReleased(event -> Launch.stage.setOpacity(1.0));
+    draggableBar.setOnDragDone(event -> Launch.getStage().setOpacity(1.0));
+    draggableBar.setOnMouseReleased(event -> Launch.getStage().setOpacity(1.0));
   }
 
   @FXML
@@ -75,6 +104,6 @@ public class MainStageController implements Initializable {
   @FXML
   void minimizeStage(MouseEvent event) {
 
-    Launch.stage.setIconified(true);
+    Launch.getStage().setIconified(true);
   }
 }
