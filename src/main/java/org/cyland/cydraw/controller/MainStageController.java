@@ -46,6 +46,7 @@ public class MainStageController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     addBasicSerialCommunicationTab();
+    addBasicCommandsTab();
 
     makeStageDraggable();
     fixBugWithMaximizingAfterMinimizing();
@@ -61,6 +62,18 @@ public class MainStageController implements Initializable {
     Pane tab;
     try {
       tab = FXMLLoader.load(getClass().getResource(VIEW_SLUG + "/basic_communication_tab_icon.fxml"));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    leftPanel.getChildren().add(tab);
+  }
+
+  private void addBasicCommandsTab() {
+
+    Pane tab;
+    try {
+      tab = FXMLLoader.load(getClass().getResource(VIEW_SLUG + "/basic_commands_tab_icon.fxml"));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
