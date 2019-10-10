@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="35.0" prefWidth="35.0" stylesheets="@../css/tab_icon.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cyland.cydraw.controller.BasicCommandsTabIconController">
+   <children>
+      <Label fx:id="basicCommandsTab" alignment="CENTER" onMouseClicked="#openBasicCommandsTab" prefHeight="45.0" prefWidth="45.0" styleClass="icon">
+         <graphic>
+            <OctIconView fill="WHITE" glyphName="MARK_GITHUB" size="40" styleClass="icon" />
+         </graphic>
+      </Label>
+   </children>
+</AnchorPane>

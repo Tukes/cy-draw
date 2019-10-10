@@ -1,0 +1,7 @@
+.icon {
+  -fx-fill: white;
+}
+
+.icon:hover {
+  -fx-fill: #a8b0c0;
+}
